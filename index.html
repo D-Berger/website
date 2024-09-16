@@ -3,14 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Faifield Polls</title>
+    <title>Fairfield Polls</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         body {
-            /*background-color: #ff000c; /* Fallback background color */
-            background-image: url(' stags.jpg'); /* Background image */
+            background-image: url('stags.jpg'); /* Background image */
             background-size: contain; /* Cover the entire page */
             background-position: center; /* Center the background image */
+        }
+        .container {
+            text-align: center;
+        }
+        .images {
+            display: block;
+        }
+        .dropdown {
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -18,44 +26,67 @@
     <div class="container">
         <h1>Fairfield Jogues Poll</h1>
 
-        <img src="G_R.png">
+        <div class="dropdown">
+            <label for="sortOrder">Sort by: </label>
+            <select id="sortOrder" onchange="sortImages()">
+                <option value="newest">Newest</option>
+                <option value="oldest">Oldest</option>
+                <option value="popular">Most Popular</option>
+                <option value="leastPopular">Least Popular</option>
+                <option value="mostCategories">Most Categories</option>
+                <option value="leastCategories">Least Categories</option>
+            </select>
+        </div>
 
-        <img src="Bod.png">
-
-        <img src="Justice.png">
-        
-        <img src="B_D.png">
-        
-        <img src="YoN.png">
-        
-        <img src="5K.png">
-        
-        <img src="LvJ.png">
-        
-        <img src="Covid.png">
-        
-        <img src="Socks.png">
-        
-        <img src="Mets.png">
-        
-        <img src="Bets.png">
-        
-        <img src="Pizza.png">
-        
-        <img src="Jets.png">
-        
-        <img src="Roommate.png">
-        
-        <img src="Music.png">
-        
-        <img src="Calc.png">
-        
-        <img src="Baseball.png">
-        
-        <img src="Condiments.png">
-        
-        <img src="Chip_Flavor.png">
-        
+        <div id="imageContainer" class="images">
+            <img src="G_R.png" data-popularity="11" data-date="2024-09-14" data-categories="2">
+            <img src="Bod.png" data-popularity="26" data-date="2024-09-14" data-categories="3">
+            <img src="Justice.png" data-popularity="7" data-date="2024-09-13" data-categories="4">
+            <img src="B_D.png" data-popularity="13" data-date="2024-09-12" data-categories="3">
+            <img src="YoN.png" data-popularity="9" data-date="2024-09-12" data-categories="3">
+            <img src="5K.png" data-popularity="10" data-date="2024-09-11" data-categories="3">
+            <img src="LvJ.png" data-popularity="40" data-date="2024-09-11" data-categories="6">
+            <img src="Covid.png" data-popularity="14" data-date="2024-09-10" data-categories="3">
+            <img src="Socks.png" data-popularity="15" data-date="2024-09-09" data-categories="2">
+            <img src="Bets.png" data-popularity="13" data-date="2024-09-09" data-categories="3">
+            <img src="Mets.png" data-popularity="12" data-date="2024-09-08" data-categories="2">
+            <img src="Pizza.png" data-popularity="24" data-date="2024-09-08" data-categories="9">
+            <img src="Jets.png" data-popularity="11" data-date="2024-09-07" data-categories="2">
+            <img src="Roommate.png" data-popularity="16" data-date="2024-09-06" data-categories="3">
+            <img src="Music.png" data-popularity="56" data-date="2024-09-05" data-categories="10">
+            <img src="Calc.png" data-popularity="17" data-date="2024-09-05" data-categories="3">
+            <img src="Baseball.png" data-popularity="21" data-date="2024-09-04" data-categories="4">
+            <img src="Condiments.png" data-popularity="28" data-date="2024-09-03" data-categories="">
+            <img src="Chip_Flavor.png" data-popularity="21" data-date="2024-09-02" data-categories="5">
+        </div>
     </div>
+
+    <script>
+        function sortImages() {
+            const container = document.getElementById('imageContainer');
+            const images = Array.from(container.getElementsByTagName('img'));
+            const sortOrder = document.getElementById('sortOrder').value;
+
+            images.sort((a, b) => {
+                if (sortOrder === 'newest') {
+                    return new Date(b.dataset.date) - new Date(a.dataset.date);
+                } else if (sortOrder === 'oldest') {
+                    return new Date(a.dataset.date) - new Date(b.dataset.date);
+                } else if (sortOrder === 'popular') {
+                    return b.dataset.popularity - a.dataset.popularity;
+                } else if (sortOrder === 'leastPopular') {
+                    return a.dataset.popularity - b.dataset.popularity;
+                } else if (sortOrder === 'mostCategories') {
+                    return b.dataset.categories - a.dataset.categories;
+                } else if (sortOrder === 'leastCategories') {
+                    return a.dataset.categories - b.dataset.categories;
+                }
+            });
+
+            // Clear the container and re-append sorted images
+            container.innerHTML = '';
+            images.forEach(img => container.appendChild(img));
+        }
+    </script>
 </body>
 </html>
