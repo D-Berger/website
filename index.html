@@ -14,7 +14,7 @@
             margin: 0;
             font-family: 'Montserrat', sans-serif;
             /* Changed background gradient to shades of red */
-            background: linear-gradient(to bottom right, #771019, #d31616);
+            background: linear-gradient(to bottom right, #7e0711, #df1010);
             color: #fff;
             overflow-x: hidden;
         }
@@ -77,6 +77,10 @@
             transition: opacity 0.3s;
         }
         .image-card:hover .image-overlay {
+            opacity: 1;
+        }
+        /* New class to show overlay on mobile */
+        .image-card.show-overlay .image-overlay {
             opacity: 1;
         }
         .image-overlay p {
@@ -175,8 +179,6 @@
                     <p>Categories: 2</p>
                 </div>
             </div>
-
-
 
 
     
@@ -465,6 +467,10 @@
 
         // Reattach event listeners after sorting
         attachImageCardListeners();
+        // Recalculate visible image after sorting
+        if (isMobile()) {
+            updateVisibleOverlay();
+        }
     }
 
     function attachImageCardListeners() {
@@ -490,9 +496,47 @@
         }
     });
 
+    // Function to check if device is mobile
+    function isMobile() {
+        return window.innerWidth <= 768;
+    }
+
+    // Function to update the visible overlay on mobile
+    function updateVisibleOverlay() {
+        const cards = document.querySelectorAll('.image-card');
+        let maxVisibleArea = 0;
+        let mostVisibleCard = null;
+
+        cards.forEach(card => {
+            const rect = card.getBoundingClientRect();
+            const visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+            const visibleWidth = Math.min(rect.right, window.innerWidth) - Math.max(rect.left, 0);
+            const visibleArea = Math.max(0, visibleHeight) * Math.max(0, visibleWidth);
+
+            if (visibleArea > maxVisibleArea) {
+                maxVisibleArea = visibleArea;
+                mostVisibleCard = card;
+            }
+        });
+
+        // Remove 'show-overlay' class from all cards
+        cards.forEach(card => card.classList.remove('show-overlay'));
+
+        // Add 'show-overlay' class to the most visible card
+        if (mostVisibleCard) {
+            mostVisibleCard.classList.add('show-overlay');
+        }
+    }
+
     // Attach event listeners on page load
     window.onload = function() {
         attachImageCardListeners();
+
+        if (isMobile()) {
+            updateVisibleOverlay();
+            window.addEventListener('scroll', updateVisibleOverlay);
+            window.addEventListener('resize', updateVisibleOverlay);
+        }
     };
 </script>
 </body>
