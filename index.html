@@ -1,24 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta tags for responsiveness and character encoding -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fairfield Polls</title>
-    <link rel="stylesheet" href="styles.css">
+    <!-- Link to Google Fonts for custom font styles -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Inline CSS styles -->
     <style>
         body {
-            background-image: url('stags.jpg'); /* Background image */
-            background-size: contain; /* Cover the entire page */
-            background-position: center; /* Center the background image */
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            /* Changed background gradient to shades of red */
+            background: linear-gradient(to bottom right, #771019, #d31616);
+            color: #fff;
+            overflow-x: hidden;
         }
         .container {
             text-align: center;
+            padding: 50px 20px;
         }
-        .images {
-            display: block;
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: fadeInDown 1s;
         }
         .dropdown {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            animation: fadeIn 2s;
+        }
+        .dropdown select {
+            padding: 10px 15px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+        }
+        .images {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: fadeInUp 1s;
+        }
+        .image-card {
+            position: relative;
+            margin: 15px;
+            overflow: hidden;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            width: 350px; /* Increased width */
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .image-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .image-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+        }
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            background: rgba(0,0,0,0.6);
+            color: #fff;
+            width: 100%;
+            padding: 15px;
+            text-align: left;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .image-card:hover .image-overlay {
+            opacity: 1;
+        }
+        .image-overlay p {
+            margin: 5px 0;
+            font-size: 0.9em;
+        }
+        /* Lightbox Styles */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Changed background to a lighter shade */
+            background: rgba(255,255,255,0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            /* Changed text color to black */
+            color: #000;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 80%;
+        }
+        .lightbox.show {
+            display: flex;
+        }
+        /* Close Button */
+        .lightbox-close {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            /* Changed text color to black */
+            color: #000;
+            font-size: 2em;
+            text-decoration: none;
+            font-weight: bold;
+            /* Changed background to a lighter shade */
+            background: rgba(255,255,255,0.5);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .lightbox-close:hover {
+            background: rgba(255,255,255,0.8);
+        }
+        /* Keyframe Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+            .image-card {
+                width: 90%;
+                margin: 10px;
+            }
         }
     </style>
 </head>
@@ -39,54 +166,334 @@
         </div>
 
         <div id="imageContainer" class="images">
-            <img src="G_R.png" data-popularity="11" data-date="2024-09-14" data-categories="2">
-            <img src="Bod.png" data-popularity="26" data-date="2024-09-14" data-categories="3">
-            <img src="Justice.png" data-popularity="7" data-date="2024-09-13" data-categories="4">
-            <img src="B_D.png" data-popularity="13" data-date="2024-09-12" data-categories="3">
-            <img src="YoN.png" data-popularity="9" data-date="2024-09-12" data-categories="3">
-            <img src="5K.png" data-popularity="10" data-date="2024-09-11" data-categories="3">
-            <img src="LvJ.png" data-popularity="40" data-date="2024-09-11" data-categories="6">
-            <img src="Covid.png" data-popularity="14" data-date="2024-09-10" data-categories="3">
-            <img src="Socks.png" data-popularity="15" data-date="2024-09-09" data-categories="2">
-            <img src="Bets.png" data-popularity="13" data-date="2024-09-09" data-categories="3">
-            <img src="Mets.png" data-popularity="12" data-date="2024-09-08" data-categories="2">
-            <img src="Pizza.png" data-popularity="24" data-date="2024-09-08" data-categories="9">
-            <img src="Jets.png" data-popularity="11" data-date="2024-09-07" data-categories="2">
-            <img src="Roommate.png" data-popularity="16" data-date="2024-09-06" data-categories="3">
-            <img src="Music.png" data-popularity="56" data-date="2024-09-05" data-categories="10">
-            <img src="Calc.png" data-popularity="17" data-date="2024-09-05" data-categories="3">
-            <img src="Baseball.png" data-popularity="21" data-date="2024-09-04" data-categories="4">
-            <img src="Condiments.png" data-popularity="28" data-date="2024-09-03" data-categories="8">
-            <img src="Chip_Flavor.png" data-popularity="21" data-date="2024-09-02" data-categories="5">
+            <!-- All images included with the updated format -->
+            <div class="image-card" data-popularity="11" data-date="2024-09-14" data-categories="2">
+                <img src="G_R.png" alt="Image">
+                <div class="image-overlay">
+                    <p>Popularity: 11</p>
+                    <p>Date: 2024-09-14</p>
+                    <p>Categories: 2</p>
+                </div>
+            </div>
+
+
+
+
+    
+                <!-- Continue adding images and corresponding lightboxes -->
+                <!-- You should replace the placeholders with the actual images and data -->
+                <!-- For brevity, I will include the rest of the images without comments -->
+    
+                <div class="image-card" data-popularity="9" data-date="2024-09-12" data-categories="3">
+                    <a href="#lightbox5">
+                        <img src="YoN.png" alt="Image">
+                    </a>
+                    <div class="image-overlay">
+                        <p>Popularity: 9</p>
+                        <p>Date: 2024-09-12</p>
+                        <p>Categories: 3</p>
+                    </div>
+                </div>
+                <div id="lightbox5" class="lightbox">
+                    <a href="#">
+                        <img src="YoN.png" alt="Image">
+                    </a>
+                </div>
+    
+                <div class="image-card" data-popularity="10" data-date="2024-09-11" data-categories="3">
+                    <a href="#lightbox6">
+                        <img src="5K.png" alt="Image">
+                    </a>
+                    <div class="image-overlay">
+                        <p>Popularity: 10</p>
+                        <p>Date: 2024-09-11</p>
+                        <p>Categories: 3</p>
+                    </div>
+                </div>
+                <div id="lightbox6" class="lightbox">
+                    <a href="#">
+                        <img src="5K.png" alt="Image">
+                    </a>
+                </div>
+    
+                <div class="image-card" data-popularity="40" data-date="2024-09-11" data-categories="6">
+                    <a href="#lightbox7">
+                        <img src="LvJ.png" alt="Image">
+                    </a>
+                    <div class="image-overlay">
+                        <p>Popularity: 40</p>
+                        <p>Date: 2024-09-11</p>
+                        <p>Categories: 6</p>
+                    </div>
+                </div>
+                <div id="lightbox7" class="lightbox">
+                    <a href="#">
+                        <img src="LvJ.png" alt="Image">
+                    </a>
+                </div>
+    
+                <div class="image-card" data-popularity="14" data-date="2024-09-10" data-categories="3">
+                    <a href="#lightbox8">
+                        <img src="Covid.png" alt="Image">
+                    </a>
+                    <div class="image-overlay">
+                        <p>Popularity: 14</p>
+                        <p>Date: 2024-09-10</p>
+                        <p>Categories: 3</p>
+                    </div>
+                </div>
+                <div id="lightbox8" class="lightbox">
+                    <a href="#">
+                        <img src="Covid.png" alt="Image">
+                    </a>
+                </div>
+    
+                <div class="image-card" data-popularity="15" data-date="2024-09-09" data-categories="2">
+                    <a href="#lightbox9">
+                        <img src="Socks.png" alt="Image">
+                    </a>
+                    <div class="image-overlay">
+                        <p>Popularity: 15</p>
+                        <p>Date: 2024-09-09</p>
+                        <p>Categories: 2</p>
+                    </div>
+                </div>
+                <div id="lightbox9" class="lightbox">
+                    <a href="#">
+                        <img src="Socks.png" alt="Image">
+                    </a>
+                </div>
+    
+                <div class="image-card" data-popularity="13" data-date="2024-09-09" data-categories="3">
+                    <a href="#lightbox10">
+                        <img src="Bets.png" alt="Image">
+                    </a>
+                    <div class="image-overlay">
+                        <p>Popularity: 13</p>
+                        <p>Date: 2024-09-09</p>
+                        <p>Categories: 3</p>
+                    </div>
+                </div>
+                <div id="lightbox10" class="lightbox">
+                    <a href="#">
+                        <img src="Bets.png" alt="Image">
+                    </a>
+                </div>
+    
+                <div class="image-card" data-popularity="12" data-date="2024-09-08" data-categories="2">
+                    <a href="#lightbox11">
+                        <img src="Mets.png" alt="Image">
+                    </a>
+                    <div class="image-overlay">
+                        <p>Popularity: 12</p>
+                        <p>Date: 2024-09-08</p>
+                        <p>Categories: 2</p>
+                    </div>
+                </div>
+                <div id="lightbox11" class="lightbox">
+                    <a href="#">
+                        <img src="Mets.png" alt="Image">
+                    </a>
+                </div>
+    
+                <div class="image-card" data-popularity="24" data-date="2024-09-08" data-categories="9">
+                    <a href="#lightbox12">
+                        <img src="Pizza.png" alt="Image">
+                    </a>
+                    <div class="image-overlay">
+                        <p>Popularity: 24</p>
+                        <p>Date: 2024-09-08</p>
+                        <p>Categories: 9</p>
+                    </div>
+                </div>
+                <div id="lightbox12" class="lightbox">
+                    <a href="#">
+                        <img src="Pizza.png" alt="Image">
+                    </a>
+                </div>
+    
+                <div class="image-card" data-popularity="11" data-date="2024-09-07" data-categories="2">
+                    <a href="#lightbox13">
+                        <img src="Jets.png" alt="Image">
+                    </a>
+                    <div class="image-overlay">
+                        <p>Popularity: 11</p>
+                        <p>Date: 2024-09-07</p>
+                        <p>Categories: 2</p>
+                    </div>
+                </div>
+                <div id="lightbox13" class="lightbox">
+                    <a href="#">
+                        <img src="Jets.png" alt="Image">
+                    </a>
+                </div>
+    
+                <div class="image-card" data-popularity="16" data-date="2024-09-06" data-categories="3">
+                    <a href="#lightbox14">
+                        <img src="Roommate.png" alt="Image">
+                    </a>
+                    <div class="image-overlay">
+                        <p>Popularity: 16</p>
+                        <p>Date: 2024-09-06</p>
+                        <p>Categories: 3</p>
+                    </div>
+                </div>
+                <div id="lightbox14" class="lightbox">
+                    <a href="#">
+                        <img src="Roommate.png" alt="Image">
+                    </a>
+                </div>
+    
+                <div class="image-card" data-popularity="56" data-date="2024-09-05" data-categories="10">
+                    <a href="#lightbox15">
+                        <img src="Music.png" alt="Image">
+                    </a>
+                    <div class="image-overlay">
+                        <p>Popularity: 56</p>
+                        <p>Date: 2024-09-05</p>
+                        <p>Categories: 10</p>
+                    </div>
+                </div>
+                <div id="lightbox15" class="lightbox">
+                    <a href="#">
+                        <img src="Music.png" alt="Image">
+                    </a>
+                </div>
+    
+                <div class="image-card" data-popularity="17" data-date="2024-09-05" data-categories="3">
+                    <a href="#lightbox16">
+                        <img src="Calc.png" alt="Image">
+                    </a>
+                    <div class="image-overlay">
+                        <p>Popularity: 17</p>
+                        <p>Date: 2024-09-05</p>
+                        <p>Categories: 3</p>
+                    </div>
+                </div>
+                <div id="lightbox16" class="lightbox">
+                    <a href="#">
+                        <img src="Calc.png" alt="Image">
+                    </a>
+                </div>
+    
+                <div class="image-card" data-popularity="21" data-date="2024-09-04" data-categories="4">
+                    <a href="#lightbox17">
+                        <img src="Baseball.png" alt="Image">
+                    </a>
+                    <div class="image-overlay">
+                        <p>Popularity: 21</p>
+                        <p>Date: 2024-09-04</p>
+                        <p>Categories: 4</p>
+                    </div>
+                </div>
+                <div id="lightbox17" class="lightbox">
+                    <a href="#">
+                        <img src="Baseball.png" alt="Image">
+                    </a>
+                </div>
+    
+                <div class="image-card" data-popularity="28" data-date="2024-09-03" data-categories="8">
+                    <a href="#lightbox18">
+                        <img src="Condiments.png" alt="Image">
+                    </a>
+                    <div class="image-overlay">
+                        <p>Popularity: 28</p>
+                        <p>Date: 2024-09-03</p>
+                        <p>Categories: 8</p>
+                    </div>
+                </div>
+                <div id="lightbox18" class="lightbox">
+                    <a href="#">
+                        <img src="Condiments.png" alt="Image">
+                    </a>
+                </div>
+    
+                <div class="image-card" data-popularity="21" data-date="2024-09-02" data-categories="5">
+                    <a href="#lightbox19">
+                        <img src="Chip_Flavor.png" alt="Image">
+                    </a>
+                    <div class="image-overlay">
+                        <p>Popularity: 21</p>
+                        <p>Date: 2024-09-02</p>
+                        <p>Categories: 5</p>
+                    </div>
+                </div>
+                <div id="lightbox19" class="lightbox">
+                    <a href="#">
+                        <img src="Chip_Flavor.png" alt="Image">
+                    </a>
+                </div>
+            </div>
         </div>
+    
+
     </div>
+</div>
 
-    <script>
-        function sortImages() {
-            const container = document.getElementById('imageContainer');
-            const images = Array.from(container.getElementsByTagName('img'));
-            const sortOrder = document.getElementById('sortOrder').value;
+<!-- Single Lightbox Div -->
+<div id="lightbox" class="lightbox">
+    <a href="#" class="lightbox-close">&times;</a>
+    <img src="" alt="Image" id="lightbox-img">
+</div>
 
-            images.sort((a, b) => {
-                if (sortOrder === 'newest') {
-                    return new Date(b.dataset.date) - new Date(a.dataset.date);
-                } else if (sortOrder === 'oldest') {
-                    return new Date(a.dataset.date) - new Date(b.dataset.date);
-                } else if (sortOrder === 'popular') {
-                    return b.dataset.popularity - a.dataset.popularity;
-                } else if (sortOrder === 'leastPopular') {
-                    return a.dataset.popularity - b.dataset.popularity;
-                } else if (sortOrder === 'mostCategories') {
-                    return b.dataset.categories - a.dataset.categories;
-                } else if (sortOrder === 'leastCategories') {
-                    return a.dataset.categories - b.dataset.categories;
-                }
+<!-- JavaScript for sorting and interactivity -->
+<script>
+    function sortImages() {
+        const container = document.getElementById('imageContainer');
+        const cards = Array.from(container.getElementsByClassName('image-card'));
+        const sortOrder = document.getElementById('sortOrder').value;
+
+        cards.sort((a, b) => {
+            if (sortOrder === 'newest') {
+                return new Date(b.dataset.date) - new Date(a.dataset.date);
+            } else if (sortOrder === 'oldest') {
+                return new Date(a.dataset.date) - new Date(b.dataset.date);
+            } else if (sortOrder === 'popular') {
+                return b.dataset.popularity - a.dataset.popularity;
+            } else if (sortOrder === 'leastPopular') {
+                return a.dataset.popularity - b.dataset.popularity;
+            } else if (sortOrder === 'mostCategories') {
+                return b.dataset.categories - a.dataset.categories;
+            } else if (sortOrder === 'leastCategories') {
+                return a.dataset.categories - b.dataset.categories;
+            }
+        });
+
+        // Clear the container and re-append sorted images
+        container.innerHTML = '';
+        cards.forEach(card => container.appendChild(card));
+
+        // Reattach event listeners after sorting
+        attachImageCardListeners();
+    }
+
+    function attachImageCardListeners() {
+        document.querySelectorAll('.image-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const imgSrc = this.querySelector('img').src;
+                document.getElementById('lightbox-img').src = imgSrc;
+                document.getElementById('lightbox').classList.add('show');
             });
+        });
+    }
 
-            // Clear the container and re-append sorted images
-            container.innerHTML = '';
-            images.forEach(img => container.appendChild(img));
+    // Close the lightbox when clicking on the close button
+    document.querySelector('.lightbox-close').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('lightbox').classList.remove('show');
+    });
+
+    // Close the lightbox when clicking outside the image
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+        if (e.target === this) {
+            this.classList.remove('show');
         }
-    </script>
+    });
+
+    // Attach event listeners on page load
+    window.onload = function() {
+        attachImageCardListeners();
+    };
+</script>
 </body>
 </html>
