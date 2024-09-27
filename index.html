@@ -28,7 +28,7 @@
             letter-spacing: 2px;
             animation: fadeInDown 1s;
         }
-        /* New h2 style for total polls */
+        /* Updated h2 style for total polls */
         h2 {
             font-size: 1.5em;
             margin-bottom: 30px;
@@ -201,8 +201,8 @@
                 <label for="giannaFilter">Gianna:</label>
                 <select id="giannaFilter" onchange="filterGianna()" aria-label="Gianna Filter">
                     <option value="all">All</option>
-                    <option value="true">Gianna</option>
-                    <option value="false">No Gianna</option>
+                    <option value="true">True</option>
+                    <option value="false">False</option>
                 </select>
             </div>
         </div>
@@ -240,8 +240,8 @@
                 </div>
             </div>
 
-            <!-- Image 4 -->
-            <div class="image-card" data-popularity="35" data-date="2024-09-23" data-categories="8" data-gianna="false" role="region" aria-label="Poll Image">
+            <!-- Image 4 with gianna set to true -->
+            <div class="image-card" data-popularity="35" data-date="2024-09-23" data-categories="8" data-gianna="true" role="region" aria-label="Poll Image">
                 <img src="James.png" alt="Poll on James's Poll">
                 <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 35</p>
@@ -260,10 +260,8 @@
                 </div>
             </div>
 
-            <!-- Continue adding all images with data-gianna="false" -->
-
             <!-- Image 6 -->
-            <div class="image-card" data-popularity="17" data-date="2024-09-22" data-categories="3" data-gianna="true" role="region" aria-label="Poll Image">
+            <div class="image-card" data-popularity="17" data-date="2024-09-22" data-categories="3" data-gianna="false" role="region" aria-label="Poll Image">
                 <img src="DieHard.png" alt="Poll on Die Hard Movie">
                 <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 17</p>
@@ -333,7 +331,7 @@
             </div>
 
             <!-- Image 13 -->
-            <div class="image-card" data-popularity="14" data-date="2024-09-16" data-categories="4" data-gianna="true" role="region" aria-label="Poll Image">
+            <div class="image-card" data-popularity="14" data-date="2024-09-16" data-categories="4" data-gianna="false" role="region" aria-label="Poll Image">
                 <img src="Audio.png" alt="Poll on Audio Preferences">
                 <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 14</p>
@@ -383,7 +381,7 @@
             </div>
 
             <!-- Image 18 -->
-            <div class="image-card" data-popularity="10" data-date="2024-09-11" data-categories="3" data-gianna="true" role="region" aria-label="Poll Image">
+            <div class="image-card" data-popularity="10" data-date="2024-09-11" data-categories="3" data-gianna="false" role="region" aria-label="Poll Image">
                 <img src="5K.png" alt="Poll on Running 5K">
                 <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 10</p>
@@ -392,7 +390,7 @@
                 </div>
             </div>
 
-            <!-- Image 19 -->
+            <!-- Image 19 with gianna set to true -->
             <div class="image-card" data-popularity="40" data-date="2024-09-11" data-categories="6" data-gianna="true" role="region" aria-label="Poll Image">
                 <img src="LvJ.png" alt="Poll on L vs J">
                 <div class="image-overlay" aria-hidden="true">
@@ -442,8 +440,8 @@
                 </div>
             </div>
 
-            <!-- Image 24 -->
-            <div class="image-card" data-popularity="24" data-date="2024-09-08" data-categories="9" data-gianna="false" role="region" aria-label="Poll Image">
+            <!-- Image 24 with gianna set to true -->
+            <div class="image-card" data-popularity="24" data-date="2024-09-08" data-categories="9" data-gianna="true" role="region" aria-label="Poll Image">
                 <img src="Pizza.png" alt="Poll on Pizza Toppings">
                 <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 24</p>
@@ -472,8 +470,8 @@
                 </div>
             </div>
 
-            <!-- Image 27 -->
-            <div class="image-card" data-popularity="56" data-date="2024-09-05" data-categories="10" data-gianna="false" role="region" aria-label="Poll Image">
+            <!-- Image 27 with gianna set to true -->
+            <div class="image-card" data-popularity="56" data-date="2024-09-05" data-categories="10" data-gianna="true" role="region" aria-label="Poll Image">
                 <img src="Music.png" alt="Poll on Music Genres">
                 <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 56</p>
@@ -532,6 +530,13 @@
 
     <!-- JavaScript for sorting, filtering, and interactivity -->
     <script>
+        function updateTotalPolls() {
+            // Count the number of .image-card elements that are currently visible
+            const visibleCards = document.querySelectorAll('.image-card:not([style*="display: none"])');
+            const numVisiblePolls = visibleCards.length;
+            document.getElementById('total-polls').textContent = 'Total Polls: ' + numVisiblePolls;
+        }
+
         function sortImages() {
             const container = document.getElementById('imageContainer');
             const cards = Array.from(container.getElementsByClassName('image-card'));
@@ -559,6 +564,10 @@
 
             // Reattach event listeners after sorting
             attachImageCardListeners();
+
+            // Update the total polls count
+            updateTotalPolls();
+
             // Recalculate visible image after sorting
             if (isMobile()) {
                 updateVisibleOverlay();
@@ -580,6 +589,9 @@
                     card.style.display = 'none';
                 }
             });
+
+            // Update the total polls count
+            updateTotalPolls();
         }
 
         function filterGianna() {
@@ -664,13 +676,11 @@
         window.onload = function() {
             attachImageCardListeners();
 
-            // Count the number of polls
-            const numPolls = document.querySelectorAll('.image-card').length;
-            // Update the total polls
-            document.getElementById('total-polls').textContent = 'Total Polls: ' + numPolls;
-
             // Populate category filter
             populateCategoryFilter();
+
+            // Update the total polls count
+            updateTotalPolls();
 
             if (isMobile()) {
                 updateVisibleOverlay();
