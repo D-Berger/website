@@ -40,6 +40,7 @@
             gap: 20px;
             margin-bottom: 30px;
             animation: fadeIn 2s;
+            flex-wrap: wrap;
         }
         .dropdown {
             animation: fadeIn 2s;
@@ -172,11 +173,11 @@
         <h1>Fairfield Jogues Poll</h1>
         <h2 id="total-polls"></h2>
 
-        <!-- Added new dropdown for category filter -->
-        <div class="dropdowns">
+        <!-- Added new dropdown for category filter and Gianna -->
+        <div class="dropdowns" role="navigation" aria-label="Filter Options">
             <div class="dropdown">
-                <label for="sortOrder">Sort by: </label>
-                <select id="sortOrder" onchange="sortImages()">
+                <label for="sortOrder">Sort by:</label>
+                <select id="sortOrder" onchange="sortImages()" aria-label="Sort Order">
                     <option value="newest">Newest</option>
                     <option value="oldest">Oldest</option>
                     <option value="popular">Most Popular</option>
@@ -188,21 +189,31 @@
 
             <!-- New category filter dropdown -->
             <div class="dropdown">
-                <label for="categoryFilter">Filter by # of Categories: </label>
-                <select id="categoryFilter" onchange="filterImages()">
+                <label for="categoryFilter">Filter by Categories:</label>
+                <select id="categoryFilter" onchange="filterImages()" aria-label="Category Filter">
                     <option value="all">All</option>
                     <!-- Options will be populated dynamically -->
+                </select>
+            </div>
+
+            <!-- New Gianna dropdown -->
+            <div class="dropdown">
+                <label for="giannaFilter">Gianna:</label>
+                <select id="giannaFilter" onchange="filterGianna()" aria-label="Gianna Filter">
+                    <option value="all">All</option>
+                    <option value="true">Gianna</option>
+                    <option value="false">No Gianna</option>
                 </select>
             </div>
         </div>
 
         <div id="imageContainer" class="images">
-            <!-- All images included with the updated format -->
+            <!-- All images included with the updated format and boolean counter -->
 
             <!-- Image 1 -->
-            <div class="image-card" data-popularity="16" data-date="2024-09-26" data-categories="8">
-                <img src="Temperature.png" alt="Temperature">
-                <div class="image-overlay">
+            <div class="image-card" data-popularity="16" data-date="2024-09-26" data-categories="8" data-gianna="false" role="region" aria-label="Poll Image">
+                <img src="Temperature.png" alt="Poll on Temperature Preference">
+                <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 16</p>
                     <p>Date: 2024-09-26</p>
                     <p>Categories: 8</p>
@@ -210,9 +221,9 @@
             </div>
 
             <!-- Image 2 -->
-            <div class="image-card" data-popularity="16" data-date="2024-09-26" data-categories="3">
-                <img src="TvP.png" alt="TvP">
-                <div class="image-overlay">
+            <div class="image-card" data-popularity="16" data-date="2024-09-26" data-categories="3" data-gianna="false" role="region" aria-label="Poll Image">
+                <img src="TvP.png" alt="Poll on TV Preferences">
+                <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 16</p>
                     <p>Date: 2024-09-26</p>
                     <p>Categories: 3</p>
@@ -220,9 +231,9 @@
             </div>
 
             <!-- Image 3 -->
-            <div class="image-card" data-popularity="30" data-date="2024-09-25" data-categories="4">
-                <img src="Food.png" alt="Food">
-                <div class="image-overlay">
+            <div class="image-card" data-popularity="30" data-date="2024-09-25" data-categories="4" data-gianna="false" role="region" aria-label="Poll Image">
+                <img src="Food.png" alt="Poll on Favorite Food">
+                <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 30</p>
                     <p>Date: 2024-09-25</p>
                     <p>Categories: 4</p>
@@ -230,9 +241,9 @@
             </div>
 
             <!-- Image 4 -->
-            <div class="image-card" data-popularity="35" data-date="2024-09-23" data-categories="8">
-                <img src="James.png" alt="James">
-                <div class="image-overlay">
+            <div class="image-card" data-popularity="35" data-date="2024-09-23" data-categories="8" data-gianna="false" role="region" aria-label="Poll Image">
+                <img src="James.png" alt="Poll on James's Poll">
+                <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 35</p>
                     <p>Date: 2024-09-23</p>
                     <p>Categories: 8</p>
@@ -240,19 +251,21 @@
             </div>
 
             <!-- Image 5 -->
-            <div class="image-card" data-popularity="16" data-date="2024-09-22" data-categories="5">
-                <img src="Shave.png" alt="Shave">
-                <div class="image-overlay">
+            <div class="image-card" data-popularity="16" data-date="2024-09-22" data-categories="5" data-gianna="false" role="region" aria-label="Poll Image">
+                <img src="Shave.png" alt="Poll on Shaving Preferences">
+                <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 16</p>
                     <p>Date: 2024-09-22</p>
                     <p>Categories: 5</p>
                 </div>
             </div>
 
+            <!-- Continue adding all images with data-gianna="false" -->
+
             <!-- Image 6 -->
-            <div class="image-card" data-popularity="17" data-date="2024-09-22" data-categories="3">
-                <img src="DieHard.png" alt="DieHard">
-                <div class="image-overlay">
+            <div class="image-card" data-popularity="17" data-date="2024-09-22" data-categories="3" data-gianna="true" role="region" aria-label="Poll Image">
+                <img src="DieHard.png" alt="Poll on Die Hard Movie">
+                <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 17</p>
                     <p>Date: 2024-09-22</p>
                     <p>Categories: 3</p>
@@ -260,9 +273,9 @@
             </div>
 
             <!-- Image 7 -->
-            <div class="image-card" data-popularity="15" data-date="2024-09-21" data-categories="3">
-                <img src="Fail.png" alt="Fail">
-                <div class="image-overlay">
+            <div class="image-card" data-popularity="15" data-date="2024-09-21" data-categories="3" data-gianna="false" role="region" aria-label="Poll Image">
+                <img src="Fail.png" alt="Poll on Failure Experiences">
+                <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 15</p>
                     <p>Date: 2024-09-21</p>
                     <p>Categories: 3</p>
@@ -270,9 +283,9 @@
             </div>
 
             <!-- Image 8 -->
-            <div class="image-card" data-popularity="15" data-date="2024-09-20" data-categories="2">
-                <img src="Ryan.png" alt="Ryan">
-                <div class="image-overlay">
+            <div class="image-card" data-popularity="15" data-date="2024-09-20" data-categories="2" data-gianna="false" role="region" aria-label="Poll Image">
+                <img src="Ryan.png" alt="Poll on Ryan's Preferences">
+                <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 15</p>
                     <p>Date: 2024-09-20</p>
                     <p>Categories: 2</p>
@@ -280,9 +293,9 @@
             </div>
 
             <!-- Image 9 -->
-            <div class="image-card" data-popularity="16" data-date="2024-09-19" data-categories="4">
-                <img src="Dorm.png" alt="Dorm">
-                <div class="image-overlay">
+            <div class="image-card" data-popularity="16" data-date="2024-09-19" data-categories="4" data-gianna="false" role="region" aria-label="Poll Image">
+                <img src="Dorm.png" alt="Poll on Dorm Life">
+                <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 16</p>
                     <p>Date: 2024-09-19</p>
                     <p>Categories: 4</p>
@@ -290,9 +303,9 @@
             </div>
 
             <!-- Image 10 -->
-            <div class="image-card" data-popularity="21" data-date="2024-09-18" data-categories="4">
-                <img src="Season.png" alt="Season">
-                <div class="image-overlay">
+            <div class="image-card" data-popularity="21" data-date="2024-09-18" data-categories="4" data-gianna="false" role="region" aria-label="Poll Image">
+                <img src="Season.png" alt="Poll on Favorite Season">
+                <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 21</p>
                     <p>Date: 2024-09-18</p>
                     <p>Categories: 4</p>
@@ -300,9 +313,9 @@
             </div>
 
             <!-- Image 11 -->
-            <div class="image-card" data-popularity="11" data-date="2024-09-17" data-categories="3">
-                <img src="Party.png" alt="Party">
-                <div class="image-overlay">
+            <div class="image-card" data-popularity="11" data-date="2024-09-17" data-categories="3" data-gianna="false" role="region" aria-label="Poll Image">
+                <img src="Party.png" alt="Poll on Party Preferences">
+                <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 11</p>
                     <p>Date: 2024-09-17</p>
                     <p>Categories: 3</p>
@@ -310,9 +323,9 @@
             </div>
 
             <!-- Image 12 -->
-            <div class="image-card" data-popularity="15" data-date="2024-09-17" data-categories="10">
-                <img src="Digit.png" alt="Digit">
-                <div class="image-overlay">
+            <div class="image-card" data-popularity="15" data-date="2024-09-17" data-categories="10" data-gianna="false" role="region" aria-label="Poll Image">
+                <img src="Digit.png" alt="Poll on Digital Usage">
+                <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 15</p>
                     <p>Date: 2024-09-17</p>
                     <p>Categories: 10</p>
@@ -320,9 +333,9 @@
             </div>
 
             <!-- Image 13 -->
-            <div class="image-card" data-popularity="14" data-date="2024-09-16" data-categories="4">
-                <img src="Audio.png" alt="Audio">
-                <div class="image-overlay">
+            <div class="image-card" data-popularity="14" data-date="2024-09-16" data-categories="4" data-gianna="true" role="region" aria-label="Poll Image">
+                <img src="Audio.png" alt="Poll on Audio Preferences">
+                <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 14</p>
                     <p>Date: 2024-09-16</p>
                     <p>Categories: 4</p>
@@ -330,9 +343,9 @@
             </div>
 
             <!-- Image 14 -->
-            <div class="image-card" data-popularity="18" data-date="2024-09-15" data-categories="6">
-                <img src="Shoes.png" alt="Shoes">
-                <div class="image-overlay">
+            <div class="image-card" data-popularity="18" data-date="2024-09-15" data-categories="6" data-gianna="false" role="region" aria-label="Poll Image">
+                <img src="Shoes.png" alt="Poll on Shoe Preferences">
+                <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 18</p>
                     <p>Date: 2024-09-15</p>
                     <p>Categories: 6</p>
@@ -340,9 +353,9 @@
             </div>
 
             <!-- Image 15 -->
-            <div class="image-card" data-popularity="11" data-date="2024-09-14" data-categories="2">
-                <img src="G_R.png" alt="G_R">
-                <div class="image-overlay">
+            <div class="image-card" data-popularity="11" data-date="2024-09-14" data-categories="2" data-gianna="false" role="region" aria-label="Poll Image">
+                <img src="G_R.png" alt="Poll on G vs R">
+                <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 11</p>
                     <p>Date: 2024-09-14</p>
                     <p>Categories: 2</p>
@@ -350,9 +363,9 @@
             </div>
 
             <!-- Image 16 -->
-            <div class="image-card" data-popularity="26" data-date="2024-09-14" data-categories="3">
-                <img src="Bod.png" alt="Bod">
-                <div class="image-overlay">
+            <div class="image-card" data-popularity="26" data-date="2024-09-14" data-categories="3" data-gianna="false" role="region" aria-label="Poll Image">
+                <img src="Bod.png" alt="Poll on Body Preferences">
+                <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 26</p>
                     <p>Date: 2024-09-14</p>
                     <p>Categories: 3</p>
@@ -360,9 +373,9 @@
             </div>
 
             <!-- Image 17 -->
-            <div class="image-card" data-popularity="9" data-date="2024-09-12" data-categories="3">
-                <img src="YoN.png" alt="YoN">
-                <div class="image-overlay">
+            <div class="image-card" data-popularity="9" data-date="2024-09-12" data-categories="3" data-gianna="false" role="region" aria-label="Poll Image">
+                <img src="YoN.png" alt="Poll on Yes or No">
+                <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 9</p>
                     <p>Date: 2024-09-12</p>
                     <p>Categories: 3</p>
@@ -370,9 +383,9 @@
             </div>
 
             <!-- Image 18 -->
-            <div class="image-card" data-popularity="10" data-date="2024-09-11" data-categories="3">
-                <img src="5K.png" alt="5K">
-                <div class="image-overlay">
+            <div class="image-card" data-popularity="10" data-date="2024-09-11" data-categories="3" data-gianna="true" role="region" aria-label="Poll Image">
+                <img src="5K.png" alt="Poll on Running 5K">
+                <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 10</p>
                     <p>Date: 2024-09-11</p>
                     <p>Categories: 3</p>
@@ -380,9 +393,9 @@
             </div>
 
             <!-- Image 19 -->
-            <div class="image-card" data-popularity="40" data-date="2024-09-11" data-categories="6">
-                <img src="LvJ.png" alt="LvJ">
-                <div class="image-overlay">
+            <div class="image-card" data-popularity="40" data-date="2024-09-11" data-categories="6" data-gianna="true" role="region" aria-label="Poll Image">
+                <img src="LvJ.png" alt="Poll on L vs J">
+                <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 40</p>
                     <p>Date: 2024-09-11</p>
                     <p>Categories: 6</p>
@@ -390,9 +403,9 @@
             </div>
 
             <!-- Image 20 -->
-            <div class="image-card" data-popularity="14" data-date="2024-09-10" data-categories="3">
-                <img src="Covid.png" alt="Covid">
-                <div class="image-overlay">
+            <div class="image-card" data-popularity="14" data-date="2024-09-10" data-categories="3" data-gianna="false" role="region" aria-label="Poll Image">
+                <img src="Covid.png" alt="Poll on COVID-19">
+                <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 14</p>
                     <p>Date: 2024-09-10</p>
                     <p>Categories: 3</p>
@@ -400,9 +413,9 @@
             </div>
 
             <!-- Image 21 -->
-            <div class="image-card" data-popularity="15" data-date="2024-09-09" data-categories="2">
-                <img src="Socks.png" alt="Socks">
-                <div class="image-overlay">
+            <div class="image-card" data-popularity="15" data-date="2024-09-09" data-categories="2" data-gianna="false" role="region" aria-label="Poll Image">
+                <img src="Socks.png" alt="Poll on Socks Preferences">
+                <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 15</p>
                     <p>Date: 2024-09-09</p>
                     <p>Categories: 2</p>
@@ -410,9 +423,9 @@
             </div>
 
             <!-- Image 22 -->
-            <div class="image-card" data-popularity="13" data-date="2024-09-09" data-categories="3">
-                <img src="Bets.png" alt="Bets">
-                <div class="image-overlay">
+            <div class="image-card" data-popularity="13" data-date="2024-09-09" data-categories="3" data-gianna="false" role="region" aria-label="Poll Image">
+                <img src="Bets.png" alt="Poll on Bets">
+                <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 13</p>
                     <p>Date: 2024-09-09</p>
                     <p>Categories: 3</p>
@@ -420,9 +433,9 @@
             </div>
 
             <!-- Image 23 -->
-            <div class="image-card" data-popularity="12" data-date="2024-09-08" data-categories="2">
-                <img src="Mets.png" alt="Mets">
-                <div class="image-overlay">
+            <div class="image-card" data-popularity="12" data-date="2024-09-08" data-categories="2" data-gianna="false" role="region" aria-label="Poll Image">
+                <img src="Mets.png" alt="Poll on Mets Team">
+                <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 12</p>
                     <p>Date: 2024-09-08</p>
                     <p>Categories: 2</p>
@@ -430,9 +443,9 @@
             </div>
 
             <!-- Image 24 -->
-            <div class="image-card" data-popularity="24" data-date="2024-09-08" data-categories="9">
-                <img src="Pizza.png" alt="Pizza">
-                <div class="image-overlay">
+            <div class="image-card" data-popularity="24" data-date="2024-09-08" data-categories="9" data-gianna="false" role="region" aria-label="Poll Image">
+                <img src="Pizza.png" alt="Poll on Pizza Toppings">
+                <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 24</p>
                     <p>Date: 2024-09-08</p>
                     <p>Categories: 9</p>
@@ -440,9 +453,9 @@
             </div>
 
             <!-- Image 25 -->
-            <div class="image-card" data-popularity="11" data-date="2024-09-07" data-categories="2">
-                <img src="Jets.png" alt="Jets">
-                <div class="image-overlay">
+            <div class="image-card" data-popularity="11" data-date="2024-09-07" data-categories="2" data-gianna="false" role="region" aria-label="Poll Image">
+                <img src="Jets.png" alt="Poll on Jets Team">
+                <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 11</p>
                     <p>Date: 2024-09-07</p>
                     <p>Categories: 2</p>
@@ -450,9 +463,9 @@
             </div>
 
             <!-- Image 26 -->
-            <div class="image-card" data-popularity="16" data-date="2024-09-06" data-categories="3">
-                <img src="Roommate.png" alt="Roommate">
-                <div class="image-overlay">
+            <div class="image-card" data-popularity="16" data-date="2024-09-06" data-categories="3" data-gianna="false" role="region" aria-label="Poll Image">
+                <img src="Roommate.png" alt="Poll on Roommate Preferences">
+                <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 16</p>
                     <p>Date: 2024-09-06</p>
                     <p>Categories: 3</p>
@@ -460,9 +473,9 @@
             </div>
 
             <!-- Image 27 -->
-            <div class="image-card" data-popularity="56" data-date="2024-09-05" data-categories="10">
-                <img src="Music.png" alt="Music">
-                <div class="image-overlay">
+            <div class="image-card" data-popularity="56" data-date="2024-09-05" data-categories="10" data-gianna="false" role="region" aria-label="Poll Image">
+                <img src="Music.png" alt="Poll on Music Genres">
+                <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 56</p>
                     <p>Date: 2024-09-05</p>
                     <p>Categories: 10</p>
@@ -470,9 +483,9 @@
             </div>
 
             <!-- Image 28 -->
-            <div class="image-card" data-popularity="17" data-date="2024-09-05" data-categories="3">
-                <img src="Calc.png" alt="Calc">
-                <div class="image-overlay">
+            <div class="image-card" data-popularity="17" data-date="2024-09-05" data-categories="3" data-gianna="false" role="region" aria-label="Poll Image">
+                <img src="Calc.png" alt="Poll on Calculator Usage">
+                <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 17</p>
                     <p>Date: 2024-09-05</p>
                     <p>Categories: 3</p>
@@ -480,9 +493,9 @@
             </div>
 
             <!-- Image 29 -->
-            <div class="image-card" data-popularity="21" data-date="2024-09-04" data-categories="4">
-                <img src="Baseball.png" alt="Baseball">
-                <div class="image-overlay">
+            <div class="image-card" data-popularity="21" data-date="2024-09-04" data-categories="4" data-gianna="false" role="region" aria-label="Poll Image">
+                <img src="Baseball.png" alt="Poll on Baseball Teams">
+                <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 21</p>
                     <p>Date: 2024-09-04</p>
                     <p>Categories: 4</p>
@@ -490,9 +503,9 @@
             </div>
 
             <!-- Image 30 -->
-            <div class="image-card" data-popularity="28" data-date="2024-09-03" data-categories="8">
-                <img src="Condiments.png" alt="Condiments">
-                <div class="image-overlay">
+            <div class="image-card" data-popularity="28" data-date="2024-09-03" data-categories="8" data-gianna="false" role="region" aria-label="Poll Image">
+                <img src="Condiments.png" alt="Poll on Favorite Condiments">
+                <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 28</p>
                     <p>Date: 2024-09-03</p>
                     <p>Categories: 8</p>
@@ -500,9 +513,9 @@
             </div>
 
             <!-- Image 31 -->
-            <div class="image-card" data-popularity="21" data-date="2024-09-02" data-categories="5">
-                <img src="Chip_Flavor.png" alt="Chip Flavor">
-                <div class="image-overlay">
+            <div class="image-card" data-popularity="21" data-date="2024-09-02" data-categories="5" data-gianna="false" role="region" aria-label="Poll Image">
+                <img src="Chip_Flavor.png" alt="Poll on Chip Flavors">
+                <div class="image-overlay" aria-hidden="true">
                     <p>Popularity: 21</p>
                     <p>Date: 2024-09-02</p>
                     <p>Categories: 5</p>
@@ -512,9 +525,9 @@
     </div>
 
     <!-- Single Lightbox Div -->
-    <div id="lightbox" class="lightbox">
-        <a href="#" class="lightbox-close">&times;</a>
-        <img src="" alt="Image" id="lightbox-img">
+    <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-img">
+        <a href="#" class="lightbox-close" aria-label="Close Lightbox">&times;</a>
+        <img src="" alt="Expanded Poll Image" id="lightbox-img">
     </div>
 
     <!-- JavaScript for sorting, filtering, and interactivity -->
@@ -557,16 +570,20 @@
             const cards = document.querySelectorAll('.image-card');
 
             cards.forEach(card => {
-                if (selectedCategory === 'all') {
+                let categoryMatch = selectedCategory === 'all' || card.dataset.categories === selectedCategory;
+                let giannaValue = document.getElementById('giannaFilter').value;
+                let giannaMatch = giannaValue === 'all' || card.dataset.gianna === giannaValue;
+
+                if (categoryMatch && giannaMatch) {
                     card.style.display = '';
                 } else {
-                    if (card.dataset.categories === selectedCategory) {
-                        card.style.display = '';
-                    } else {
-                        card.style.display = 'none';
-                    }
+                    card.style.display = 'none';
                 }
             });
+        }
+
+        function filterGianna() {
+            filterImages(); // Reuse the filterImages function to apply both filters
         }
 
         function populateCategoryFilter() {
